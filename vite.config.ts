@@ -16,6 +16,7 @@ export default defineConfig({
       //name for different formats during the build
       formats: ['es', 'cjs'],
       fileName: (format) => `index.${format}.js`,
+      cssFileName: 'style',
     },
     rollupOptions: {
       external: ['react', 'react-dom'],
@@ -24,6 +25,10 @@ export default defineConfig({
           react: 'React',
           'react-dom': 'ReactDOM',
         },
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name === 'index.css') return 'style.css'; // ✅ rename
+          return assetInfo.name!;
+        },
       },
     },
     //Generates sourcemaps for the built files,
@@ -31,6 +36,7 @@ export default defineConfig({
     sourcemap: true,
     //Clears the output directory before building.
     emptyOutDir: true,
+    cssCodeSplit: true,
   },
   plugins: [react(), dts({ tsconfigPath: './tsconfig.app.json' })],
 });
