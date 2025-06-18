@@ -1,0 +1,8 @@
+.default-scrollarea-container {
+  height: 100%;
+}
+
+.default-scrollarea-container div.mantine-ScrollArea-viewport>div {
+  display: inherit !important;
+  height: 100%;
+}
