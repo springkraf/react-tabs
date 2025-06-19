@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ReactTabs } from '../tabs';
+import { ReactTabs, type NavigationTabItemProps } from '../tabs';
 import { useArgs } from 'storybook/internal/preview-api';
 import { fn } from 'storybook/test';
 
@@ -11,10 +11,9 @@ const meta: Meta<typeof ReactTabs> = {
     variant: { control: 'select', options: ['compact', 'normal'] },
     activeKey: { control: 'text' },
     items: { control: 'object' },
-    containerClass: { control: 'text' },
     iconColors: { control: 'object' },
     //@ts-expect-error it's a Custom description
-    NavigationTabItem: {
+    NavigationTabItemProps: {
       control: 'object',
       description: `
       {
@@ -25,12 +24,12 @@ const meta: Meta<typeof ReactTabs> = {
         },
         getContent: () => ReactNode,
         className: {
-          title?: string;
+          icon?: string;
+          panel?: string;
+          pulseBar?: string;
           tab?: string;
           tabActive?: string;
-          tabInactive?: string;
-          panel?: string;
-          icon?: string;
+          title?: string;
         },
       }
       `,
@@ -125,11 +124,46 @@ export const ReactTabsStory: Story = {
   render(args) {
     const [, updateArgs] = useArgs();
 
-    const handleChange = (val: string) => {
+    const handleChangeTab = (val: string) => {
       updateArgs({ activeKey: val });
       args.onChange?.(val);
     };
 
-    return <ReactTabs {...args} onChange={handleChange} />;
+    const handleRemoveTab = (val: string) => {
+      updateArgs({ items: args.items.filter((curr) => curr.key !== val) });
+      args.onRemove?.(val);
+    };
+
+    const handleReorder = (val: NavigationTabItemProps[]) => {
+      updateArgs({ items: val });
+      args.onReorder?.(val);
+    };
+
+    const handleAddTab = () => {
+      const index = args.items.length + 1;
+      updateArgs({
+        items: args.items.concat({
+          key: index.toString(),
+          title: { content: <span>Tab {index}</span> },
+          getContent() {
+            return <div>Content Tab {index}</div>;
+          },
+        }),
+      });
+    };
+
+    return (
+      <>
+        <ReactTabs
+          {...args}
+          onChange={handleChangeTab}
+          onRemove={handleRemoveTab}
+          onReorder={handleReorder}
+        />
+        <button type="button" onClick={handleAddTab}>
+          Add Tab
+        </button>
+      </>
+    );
   },
 };

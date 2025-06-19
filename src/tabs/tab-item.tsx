@@ -42,9 +42,9 @@ const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
           isCompact && styles.tabs__tab_compact,
           item.className?.tab,
           isActive && item.className?.tabActive,
-          !isActive && item.className?.tabInactive,
           isDragging && styles['tabs__tab--dragging'],
           isDropTarget && styles['tabs__tab--drop-target'],
+          isDropTarget && item.className?.pulseBar,
         )}
         onContextMenu={item.title.onContextMenu}
         draggable

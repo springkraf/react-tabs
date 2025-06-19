@@ -31,12 +31,12 @@ export default function ReactTabs(props: TabProps) {
     items = [],
     onRemove,
     activeKey,
-    containerClass,
     onChange,
     renderLeft,
     renderRight,
     onResizing,
     onReorder,
+    className,
     iconColors = { close: '#099CFF', dots: '#099CFF' },
     variant = 'normal',
   } = props;
@@ -200,10 +200,38 @@ export default function ReactTabs(props: TabProps) {
   );
   const [showMoreButtonRef, showMoreButtonRect] = useResizeObserver();
 
+  const invisibleIsActive =
+    !!invisibleKey.length && activeKey && invisibleKey.includes(activeKey);
+
+  const tabItemClassName = useCallback(
+    (item: NavigationTabItemProps, isInvisible: boolean) => {
+      return {
+        ...item,
+        className: {
+          ...item.className,
+          tabActive: classNames(
+            item.className?.tabActive,
+            className?.tabItem?.active,
+          ),
+          tab: classNames(
+            isInvisible && styles.tab__invisibleTab,
+            className?.tabItem?.base,
+            item.className?.tab,
+          ),
+          pulseBar: classNames(
+            className?.tabItem?.pulseBar,
+            item.className?.pulseBar,
+          ),
+        },
+      };
+    },
+    [className?.tabItem],
+  );
+
   return (
     <MantineProvider>
       <div
-        className={classNames(styles.tab__root_container, containerClass)}
+        className={classNames(styles.tab__root_container, className?.container)}
         onClick={() => setIsShowMore(false)}
       >
         <div ref={containerRef}>
@@ -225,16 +253,7 @@ export default function ReactTabs(props: TabProps) {
                       }}
                       onHandleChange={onHandleChange}
                       onHandleRemove={onHandleRemove}
-                      item={{
-                        ...item,
-                        className: {
-                          ...item.className,
-                          tab: classNames(
-                            styles.tab__invisibleTab,
-                            item.className?.tab,
-                          ),
-                        },
-                      }}
+                      item={tabItemClassName(item, true)}
                       isActive={isActive}
                       index={index}
                       onDragStart={(...props) =>
@@ -263,7 +282,7 @@ export default function ReactTabs(props: TabProps) {
                       }}
                       onHandleChange={onHandleChange}
                       onHandleRemove={onHandleRemove}
-                      item={item}
+                      item={tabItemClassName(item, false)}
                       isActive={isActive}
                       index={index}
                       onDragStart={(...props) =>
@@ -304,12 +323,12 @@ export default function ReactTabs(props: TabProps) {
                       className={classNames(
                         styles[
                           `tabs__tab--${
-                            activeKey && invisibleKey.includes(activeKey)
-                              ? 'active'
-                              : 'inactive'
+                            invisibleIsActive ? 'active' : 'inactive'
                           }`
                         ],
                         styles.tab__showmore,
+                        className?.showMore?.base,
+                        invisibleIsActive && className?.showMore?.active,
                         isCompact && styles.tab__showmore_compact,
                       )}
                       onClick={(e) => {
@@ -357,7 +376,7 @@ export default function ReactTabs(props: TabProps) {
                 classNames(
                   styles.tab__panel,
                   activeItem?.className?.panel,
-                  containerClass,
+                  className?.container,
                 ) || ''
               }
               role="tabpanel"
