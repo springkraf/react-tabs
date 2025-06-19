@@ -1,8 +1,9 @@
-import classNames from 'classnames';
-import type { ShowMoreProps } from './types';
-import styles from './styles.module.css';
 import { ScrollArea } from '@mantine/core';
+import classNames from 'classnames';
+
+import styles from './styles.module.css';
 import TabItem from './tab-item';
+import type { ShowMoreProps } from './types';
 import { handleDragOver, handleDragStart, onDragEnd } from './utils';
 
 export default function ShowMore(props: ShowMoreProps) {

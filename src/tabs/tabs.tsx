@@ -1,3 +1,7 @@
+import { MantineProvider, Menu } from '@mantine/core';
+import '@mantine/core/styles.css';
+import { useElementSize, useResizeObserver } from '@mantine/hooks';
+import classNames from 'classnames';
 import {
   type DragEvent,
   useCallback,
@@ -6,25 +10,21 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useElementSize, useResizeObserver } from '@mantine/hooks';
-import { MantineProvider, Menu } from '@mantine/core';
-import '@mantine/core/styles.css';
 
+import DotsSvgIcon from '../assets/dots.svg';
+import DefaultScrollArea from '../default-scroll-area';
+import { NavigationTabSizeContext } from './context';
+import Separator from './seperator';
+import ShowMore from './show-more';
+import styles from './styles.module.css';
+import TabItem from './tab-item';
 import type {
   DragInfo,
   NavigationTabItemProps,
   TabProps,
   TabStateProps,
 } from './types';
-import classNames from 'classnames';
-import styles from './styles.module.css';
-import TabItem from './tab-item';
 import { handleDragOver, handleDragStart, onDragEnd } from './utils';
-import Separator from './seperator';
-import ShowMore from './show-more';
-import { NavigationTabSizeContext } from './context';
-import DefaultScrollArea from '../default-scroll-area';
-import DotsSvgIcon from '../assets/dots.svg';
 
 export default function ReactTabs(props: TabProps) {
   const {

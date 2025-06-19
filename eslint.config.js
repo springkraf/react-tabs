@@ -1,36 +1,12 @@
 // For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
-import { defineConfig, globalIgnores } from 'eslint/config';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
-
 import typescriptParser from '@typescript-eslint/parser';
 import _import from 'eslint-plugin-import';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import typescriptEslint from 'typescript-eslint';
-
-// export default tseslint.config(
-//   { ignores: ['dist'] },
-//   {
-//     extends: [js.configs.recommended, ...tseslint.configs.recommended],
-//     files: ['**/*.{ts,tsx}'],
-//     languageOptions: {
-//       ecmaVersion: 2020,
-//       globals: globals.browser,
-//     },
-//     plugins: {
-//       'react-hooks': reactHooks,
-//       'react-refresh': reactRefresh,
-//     },
-//     rules: {
-//       ...reactHooks.configs.recommended.rules,
-//       'react-refresh/only-export-components': [
-//         'warn',
-//         { allowConstantExport: true },
-//       ],
-//     },
-//   },
-// )
 
 export default defineConfig([
   eslintPluginPrettierRecommended,
@@ -70,33 +46,6 @@ export default defineConfig([
         },
       ],
 
-      // 'import/order': [
-      //   'warn',
-      //   {
-      //     groups: ['builtin', 'external', 'internal'],
-
-      //     pathGroups: [
-      //       {
-      //         pattern: '@',
-      //         group: 'external',
-      //         position: 'before',
-      //       },
-      //       {
-      //         pattern: '@app/**',
-      //         group: 'internal',
-      //       },
-      //     ],
-
-      //     pathGroupsExcludedImportTypes: ['internal'],
-      //     'newlines-between': 'always',
-
-      //     alphabetize: {
-      //       order: 'asc',
-      //       caseInsensitive: true,
-      //     },
-      //   },
-      // ],
-
       'react-native/no-inline-styles': 0,
       'react/react-in-jsx-scope': 'off',
       'react/jsx-uses-react': 'off',
@@ -122,11 +71,6 @@ export default defineConfig([
           allowTernary: true,
         },
       ],
-
-      // "react/no-unstable-nested-components": ["warn", {
-      //     allowAsProps: true,
-      //     customValidators: [],
-      // }],
     },
   },
   globalIgnores(['dist/*', '**/node_modules', 'src/assets/*', 'src/stories']),

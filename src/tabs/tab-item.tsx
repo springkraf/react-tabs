@@ -1,8 +1,9 @@
-import { forwardRef } from 'react';
-import type { TabItemProps } from './types';
 import classNames from 'classnames';
-import styles from './styles.module.css';
+import { forwardRef } from 'react';
+
 import CloseSvgIcon from '../assets/close.svg';
+import styles from './styles.module.css';
+import type { TabItemProps } from './types';
 
 const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
   function TabItem(props, ref) {
