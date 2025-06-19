@@ -1,5 +1,5 @@
 import { DragEvent, MouseEventHandler, MutableRefObject, ReactNode } from '../../node_modules/react';
-export interface NavigationTabItem {
+export interface NavigationTabItemProps {
     key: string;
     title: {
         content: string | ReactNode;
@@ -7,19 +7,19 @@ export interface NavigationTabItem {
     };
     getContent: () => ReactNode;
     className?: {
-        title?: string;
+        icon?: string;
+        panel?: string;
+        pulseBar?: string;
         tab?: string;
         tabActive?: string;
-        tabInactive?: string;
-        panel?: string;
-        icon?: string;
+        title?: string;
     };
 }
 export interface TabItemProps {
     onHandleChange: (key: string) => void;
     onHandleRemove: (key: string) => void;
     isActive: boolean;
-    item: NavigationTabItem;
+    item: NavigationTabItemProps;
     index: number;
     onDragStart: (e: DragEvent, index: number, isVisible: boolean) => void;
     onDragOver: (e: DragEvent, index: number, isVisible: boolean) => void;
@@ -32,18 +32,29 @@ export interface TabItemProps {
     isCompact?: boolean;
 }
 export interface TabProps {
-    items: NavigationTabItem[];
+    items: NavigationTabItemProps[];
     onRemove: (key: string) => void;
     onChange: (key: string) => void;
     activeKey?: string;
-    containerClass?: string;
+    className?: {
+        container?: string;
+        showMore?: {
+            active?: string;
+            base?: string;
+        };
+        tabItem?: {
+            active?: string;
+            base?: string;
+            pulseBar?: string;
+        };
+    };
     renderLeft?: (ref: MutableRefObject<HTMLDivElement | null>) => ReactNode;
     renderRight?: (ref: MutableRefObject<HTMLDivElement | null>) => ReactNode;
     onResizing?: (params: {
         isChanged: boolean;
         width: number;
     }) => void;
-    onReorder?: (items: NavigationTabItem[]) => void;
+    onReorder?: (items: NavigationTabItemProps[]) => void;
     iconColors?: {
         close?: string;
         dots?: string;
@@ -58,28 +69,14 @@ export interface TabStateProps {
     tabDimension: number[];
     totalTabsWidth: number;
 }
-export interface NavigationTabItemProps {
-    key: string;
-    title: {
-        content: string | ReactNode;
-        onContextMenu?: MouseEventHandler<HTMLDivElement>;
-    };
-    getContent: () => ReactNode;
-    className?: {
-        title?: string;
-        tab?: string;
-        panel?: string;
-        icon?: string;
-    };
-}
 export interface ShowMoreProps {
-    items: NavigationTabItem[];
+    items: NavigationTabItemProps[];
     activeKey: string;
     onChange: (key: string) => void;
     onRemove: (key: string) => void;
     init: () => void;
     offsetLeft: number;
-    onReorder?: (items: NavigationTabItem[]) => void;
+    onReorder?: (items: NavigationTabItemProps[]) => void;
     setDraggedInfo: React.Dispatch<React.SetStateAction<DragInfo>>;
     setDropTargetInfo: React.Dispatch<React.SetStateAction<DragInfo>>;
     handleDrop: (e: React.DragEvent, dropIndex: number, isDropVisible: boolean) => void;
