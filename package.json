@@ -2,7 +2,7 @@
   "name": "@spkf/react-tabs",
   "description": "Simple responsive tabs",
   "private": false,
-  "version": "1.0.6",
+  "version": "1.0.7",
   "type": "module",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",

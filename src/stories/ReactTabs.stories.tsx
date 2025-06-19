@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ReactTabs, type NavigationTabItemProps } from '../tabs';
 import { useArgs } from 'storybook/internal/preview-api';
 import { fn } from 'storybook/test';
+
+import { type NavigationTabItemProps, ReactTabs } from '../tabs';
 
 const meta: Meta<typeof ReactTabs> = {
   title: 'Example/ReactTabs',

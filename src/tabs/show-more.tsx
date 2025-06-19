@@ -19,10 +19,12 @@ export default function ShowMore(props: ShowMoreProps) {
     handleDrop,
     draggedInfo,
     dropTargetInfo,
+    className,
   } = props;
 
   return (
     <div
+      className={className?.container}
       style={{
         left: offsetLeft,
       }}
@@ -48,9 +50,18 @@ export default function ShowMore(props: ShowMoreProps) {
                   ...item,
                   className: {
                     ...item.className,
+                    tabActive: classNames(
+                      className?.tabItem?.active,
+                      item.className?.tabActive,
+                    ),
                     tab: classNames(
                       styles.tab__showmore_item,
+                      className?.tabItem?.base,
                       item.className?.tab,
+                    ),
+                    pulseBar: classNames(
+                      className?.tabItem?.pulseBar,
+                      item.className?.pulseBar,
                     ),
                   },
                 }}

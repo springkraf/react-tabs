@@ -49,6 +49,7 @@ export interface TabProps {
     showMore?: {
       active?: string;
       base?: string;
+      container?: string;
     };
     tabItem?: {
       active?: string;
@@ -94,4 +95,12 @@ export interface ShowMoreProps {
   ) => void;
   draggedInfo: DragInfo;
   dropTargetInfo: DragInfo;
+  className?: {
+    container?: string;
+    tabItem?: {
+      base?: string;
+      active?: string;
+      pulseBar?: string;
+    };
+  };
 }

@@ -210,8 +210,8 @@ export default function ReactTabs(props: TabProps) {
         className: {
           ...item.className,
           tabActive: classNames(
-            item.className?.tabActive,
             className?.tabItem?.active,
+            item.className?.tabActive,
           ),
           tab: classNames(
             isInvisible && styles.tab__invisibleTab,
@@ -355,6 +355,10 @@ export default function ReactTabs(props: TabProps) {
                       handleDrop={handleDrop}
                       draggedInfo={draggedInfo}
                       dropTargetInfo={dropTargetInfo}
+                      className={{
+                        container: className?.showMore?.container,
+                        tabItem: className?.tabItem,
+                      }}
                     />
                   </Menu.Dropdown>
                 </Menu>
