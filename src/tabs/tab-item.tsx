@@ -41,7 +41,8 @@ const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
           styles.tabs__tab,
           isCompact && styles.tabs__tab_compact,
           item.className?.tab,
-
+          isActive && item.className?.tabActive,
+          !isActive && item.className?.tabInactive,
           isDragging && styles['tabs__tab--dragging'],
           isDropTarget && styles['tabs__tab--drop-target'],
         )}

@@ -2,6 +2,8 @@ import path from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import react from '@vitejs/plugin-react';
+import viteCompression from 'vite-plugin-compression';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -21,12 +23,8 @@ export default defineConfig({
     rollupOptions: {
       external: ['react', 'react-dom'],
       output: {
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
-        },
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name === 'index.css') return 'style.css'; // ✅ rename
+          if (assetInfo.name === 'index.css') return 'style.css';
           return assetInfo.name!;
         },
       },
@@ -37,6 +35,14 @@ export default defineConfig({
     //Clears the output directory before building.
     emptyOutDir: true,
     cssCodeSplit: true,
+    minify: 'esbuild',
   },
-  plugins: [react(), dts({ tsconfigPath: './tsconfig.app.json' })],
+  plugins: [
+    react(),
+    dts({ tsconfigPath: './tsconfig.app.json' }),
+    viteCompression({
+      algorithm: 'brotliCompress', // or 'gzip'
+    }),
+    visualizer({ open: true }),
+  ],
 });

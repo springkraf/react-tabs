@@ -13,6 +13,31 @@ const meta: Meta<typeof ReactTabs> = {
     items: { control: 'object' },
     containerClass: { control: 'text' },
     iconColors: { control: 'object' },
+    //@ts-expect-error it's a Custom description
+    NavigationTabItem: {
+      control: 'object',
+      description: `
+      {
+        key: string,
+        title: {
+          content: string | ReactNode,
+          onContextMenu?: MouseEventHandler<HTMLDivElement>,
+        },
+        getContent: () => ReactNode,
+        className: {
+          title?: string;
+          tab?: string;
+          tabActive?: string;
+          tabInactive?: string;
+          panel?: string;
+          icon?: string;
+        },
+      }
+      `,
+      table: {
+        category: 'Custom',
+      },
+    },
   },
   args: {
     onChange: fn(),

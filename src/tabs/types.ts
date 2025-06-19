@@ -15,6 +15,8 @@ export interface NavigationTabItem {
   className?: {
     title?: string;
     tab?: string;
+    tabActive?: string;
+    tabInactive?: string;
     panel?: string;
     icon?: string;
   };
