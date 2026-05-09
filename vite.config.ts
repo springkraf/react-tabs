@@ -21,7 +21,15 @@ export default defineConfig({
       cssFileName: 'style',
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        '@mantine/core',
+        '@mantine/hooks',
+        '@types/react',
+        '@types/react-dom',
+      ],
       output: {
         assetFileNames: (assetInfo) => {
           if (assetInfo.name === 'index.css') return 'style.css';
